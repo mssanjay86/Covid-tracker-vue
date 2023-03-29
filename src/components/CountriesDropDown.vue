@@ -3,7 +3,8 @@
         <div class="container">
             <div class="nav">
                 <button class="navigate-btn state" @click="navigateToStateWise">State-wise stats</button>
-                <button class="navigate-btn margin-spacing-nav vaccination" @click="navigateToVaccinationCentres">Vaccination
+                <button class="navigate-btn margin-spacing-nav vaccination"
+                    @click="navigateToVaccinationCentres">Vaccination
                     centres</button>
             </div>
 
@@ -16,12 +17,12 @@
                 </select>
             </div>
 
-            <TotalCases :cases="cases" :isDisplayArrow="isDisplayArrow" />
-            <TodayCases :todayCases="todayCases" />
-            <RecoveredCases :recovered="recovered" />
-            <TodayRecoveredCases :todayRecovered="todayRecovered" />
-            <DeathCases :deaths="deaths" />
-            <TodayDeaths :todayDeaths="todayDeaths" />
+            <TotalCases :cases="cases" :isDisplayArrow="isDisplayArrow" v-if="cases" />
+            <TodayCases :todayCases="todayCases" v-if="todayCases" />
+            <RecoveredCases :recovered="recovered" v-if="recovered" />
+            <TodayRecoveredCases :todayRecovered="todayRecovered" v-if="todayRecovered" />
+            <DeathCases :deaths="deaths" v-if="deaths" />
+            <TodayDeaths :todayDeaths="todayDeaths" v-if="todayDeaths" />
 
 
         </div>
@@ -31,6 +32,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
+
 import TotalCases from "./TotalCases.vue";
 import TodayCases from "./TodayCases.vue";
 import RecoveredCases from "./RecoveredCases.vue";
@@ -137,13 +139,13 @@ interface attributes {
     todayDeaths: number
 }
 
-const country = ref<attributes>("Select")
-const cases = ref<attributes>(0)
-const todayCases = ref<attributes>(0)
-const recovered = ref<attributes>(0)
-const todayRecovered = ref<attributes>(0)
-const deaths = ref<attributes>(0)
-const todayDeaths = ref<attributes>(0)
+const country = ref<string>()
+const cases = ref<string>()
+const todayCases = ref<string>()
+const recovered = ref<string>()
+const todayRecovered = ref<string>()
+const deaths = ref<string>()
+const todayDeaths = ref<string>()
 const getCountry = () => {
     country.value = country.value
     fetch("https://disease.sh/v3/covid-19/countries/" + country.value)
@@ -175,7 +177,7 @@ const getCountry = () => {
                 getNumberFormat(previouslyUpdatedCases.value?.timeline.cases['3/9/23'])
             );
             console.log(cases.value);
-            if (getNumberFormat(previouslyUpdatedCases.value?.timeline.cases['3/9/23']) < cases.value) {
+            if (cases.value && getNumberFormat(previouslyUpdatedCases.value?.timeline.cases['3/9/23']) as any < cases.value) {
                 isDisplayArrow.value = 1
             } else {
                 isDisplayArrow.value = 2

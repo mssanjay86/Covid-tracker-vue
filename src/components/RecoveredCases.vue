@@ -7,7 +7,11 @@
     </div>
 </template>
 <script lang="ts" setup>
-defineProps({
-    recovered: Number
-})
+interface prop {
+    recovered: string,
+   
+
+}
+const props = defineProps<prop>();
+
 </script>

@@ -7,7 +7,10 @@
     </div>
 </template>
 <script lang="ts" setup>
-defineProps({
-    todayCases: Number
-})
+interface prop {
+    todayCases: string,
+   
+
+}
+const props = defineProps<prop>();
 </script>

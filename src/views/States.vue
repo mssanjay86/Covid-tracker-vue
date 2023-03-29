@@ -74,12 +74,12 @@ interface attributes {
 
 }
 
-const active = ref<attributes>(0);
-const cured = ref<attributes>(0);
-const death = ref<attributes>(0);
-const newDeath = ref<attributes>(0);
-const newActive = ref<attributes>(0);
-const newCured = ref<attributes>(0);
+const active = ref<attributes>();
+const cured = ref<attributes>();
+const death = ref<attributes>();
+const newDeath = ref<attributes>();
+const newActive = ref<attributes>();
+const newCured = ref<attributes>();
 
 
 
@@ -100,7 +100,7 @@ const getData = async () => {
             console.log(eachStateData);
             active.value = getNumberFormat(parseInt(eachStateData.active)) as any
             cured.value = getNumberFormat(parseInt(eachStateData.cured)) as any
-            death.value = getNumberFormat(parseInt(eachStateData.death)) as any
+            death.value = getNumberFormat(eachStateData.death) as any
             newDeath.value = getNumberFormat(parseInt(eachStateData.new_death)) as any
             newActive.value = getNumberFormat(parseInt(eachStateData.new_active)) as any
             newCured.value = getNumberFormat(parseInt(eachStateData.new_cured)) as any

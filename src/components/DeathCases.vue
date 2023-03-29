@@ -7,7 +7,11 @@
     </div>
 </template>
 <script lang="ts" setup>
-defineProps({
-    deaths: Number
-})
+
+interface prop{
+    deaths:string
+}
+
+const props = defineProps<prop>();
+
 </script>
